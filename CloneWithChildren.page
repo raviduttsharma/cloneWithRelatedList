@@ -1,0 +1,39 @@
+<!-- Author : Ravi Dutt Sharma
+Created Date : 3/18/2016
+Description : This page provides user ability to select the child records which needs to be cloned.
+Controller : CloneWithChildrenCtrl
+-->
+<apex:page controller="CloneWithChildrenCtrl">
+    <apex:pageMessages />
+    <apex:form >
+        <apex:pageBlock >
+            
+            <apex:pageBlockSection title="Parent Record">
+                <apex:outputText value="{!parentObjName}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Child Records">
+                
+                <apex:inputCheckbox >
+                    <apex:outputText >Select All</apex:outputText>
+                    <apex:actionSupport event="onclick" action="{!checkAll}"/>
+                </apex:inputCheckbox>
+                <apex:outputText />
+                
+                <apex:pageBlockTable value="{!childObjWrapperList}" var="child" columns="3">
+                    <apex:column headerValue="Need to Clone?">
+                        <apex:inputCheckbox value="{!child.isSelected}"/>
+                    </apex:column>
+                    <apex:column value="{!child.objName}" headerValue="Object"/>
+                    <apex:column value="{!child.relationshipName}" headerValue="Related to Field"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton title="Clone" value="Clone" action="{!cloneWithChildren}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
